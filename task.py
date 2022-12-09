@@ -5,14 +5,17 @@ def count_medals(medals, medals_line):
     gold = 0
     silver = 0
     bronze = 0
-    if medal in medals:
+    for medal in medals:
         if medal == "Gold":
             gold += 1
+            continue
         elif medal == "Silver":
             silver += 1
+            continue
         elif medal == "Bronze":
             bronze += 1
-        else:
+            continue
+        return
 
 
 def check_athletes(name)
