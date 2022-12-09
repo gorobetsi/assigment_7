@@ -1,31 +1,12 @@
 import sys
 
 
-def count_medals(medals, medals_line):
-    gold = 0
-    silver = 0
-    bronze = 0
-    for medal in medals:
-        if medal == "Gold":
-            gold += 1
-            continue
-        elif medal == "Silver":
-            silver += 1
-            continue
-        elif medal == "Bronze":
-            bronze += 1
-            continue
-        return
-
-
-def check_athletes(name)
-
-
-
-
 def task1(filename, country, year):
     head = None
     first_line = True
+    gold = 0
+    silver = 0
+    bronze = 0
     with open(filename, "r") as file:
         for line in file:
             data = line.strip().split("\t")
@@ -33,9 +14,17 @@ def task1(filename, country, year):
                 head = data
                 first_line = False
                 continue
-
+            medal = data[head.index("Medal")]
             if country == data[head.index("NOC")] and year == data[head.index("Year")]:
-                pass
+                if medal == "Gold":
+                    gold += 1
+                    continue
+                elif medal == "Silver":
+                    silver += 1
+                    continue
+                elif medal == "Bronze":
+                    bronze += 1
+                    continue
 
 
 def main():
