@@ -1,6 +1,25 @@
 import sys
 
 
+def count_medals(medals, medals_line):
+    gold = 0
+    silver = 0
+    bronze = 0
+    if medal in medals:
+        if medal == "Gold":
+            gold += 1
+        elif medal == "Silver":
+            silver += 1
+        elif medal == "Bronze":
+            bronze += 1
+        else:
+
+
+def check_athletes(name)
+
+
+
+
 def task1(filename, country, year):
     head = None
     first_line = True
