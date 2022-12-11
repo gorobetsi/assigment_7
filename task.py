@@ -1,34 +1,30 @@
 import sys
 
 
-def count_medals(medals):
+def count_medals(medals, medals_line):
     gold = 0
     silver = 0
     bronze = 0
-    sum_medals = 0
     for medal in medals:
         if medal == "Gold":
             gold += 1
+            continue
         elif medal == "Silver":
             silver += 1
+            continue
         elif medal == "Bronze":
             bronze += 1
-    sum_medals = gold + silver + bronze
-    return sum_medals
+            continue
+        return
 
 
-def filename(medals):
-    filenames = []
-    for medal in medals:
-        if medal == "Gold":
-            filenames = filenames.append(Name)
+def check_athletes(name):
+    pass
 
 
 
 
-
-
-def task1(country, year):
+def task1(filename, country, year):
     head = None
     first_line = True
     with open(filename, "r") as file:
