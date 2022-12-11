@@ -1,25 +1,33 @@
 import sys
 
 
-def count_medals(medals, medals_line):
+def count_medals(medals):
     gold = 0
     silver = 0
     bronze = 0
+    sum_medals = 0
     for medal in medals:
         if medal == "Gold":
             gold += 1
-            continue
         elif medal == "Silver":
             silver += 1
-            continue
         elif medal == "Bronze":
             bronze += 1
-            continue
-        return
+    sum_medals = gold + silver + bronze
+    return gold, silver, bronze, sum_medals
 
-
-def check_athletes(name):
-    pass
+def result_for1(list):
+    list_with_names = []
+    time = 0
+    for items in list:
+        item1 = items.split("\t")
+        if time > 9:
+            break
+        elif item1[14] != "NA\n":
+            list_with_names.append([item1[1], item1[12], item1[14]])
+            time = time + 1
+    for name in list_with_names:
+        print(name[0], "-", name[1], "-", name[2])
 
 
 
@@ -27,6 +35,7 @@ def check_athletes(name):
 def task1(filename, country, year):
     head = None
     first_line = True
+    all_line = []
     with open(filename, "r") as file:
         for line in file:
             data = line.strip().split("\t")
@@ -36,8 +45,15 @@ def task1(filename, country, year):
                 continue
 
             if country == data[head.index("NOC")] and year == data[head.index("Year")]:
-                pass
+                all_line.append(line)
+        b = result_for1(all_line)
 
+
+    return b
+
+c = task1("data_file.tsv", "USA","1936")
+
+print(c)
 
 def main():
     args = sys.argv
