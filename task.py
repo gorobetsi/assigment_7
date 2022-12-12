@@ -5,16 +5,18 @@ def count_medals(medals):
     gold = 0
     silver = 0
     bronze = 0
-    sum_medals = 0
+    #sum_medals = 0
     for medal in medals:
-        if medal == "Gold":
+        if medal == "Gold\n":
             gold += 1
-        elif medal == "Silver":
+        elif medal == "Silver\n":
             silver += 1
-        elif medal == "Bronze":
+        elif medal == "Bronze\n":
             bronze += 1
-    sum_medals = gold + silver + bronze
-    return gold, silver, bronze, sum_medals
+    #sum_medals = gold + silver + bronze
+    print("gold=", gold)
+    print("silver=", silver)
+    print("bronze=", bronze)
 
 def result_for1(list):
     list_with_names = []
@@ -36,6 +38,7 @@ def task1(filename, country, year):
     head = None
     first_line = True
     all_line = []
+    medals = []
     with open(filename, "r") as file:
         for line in file:
             data = line.strip().split("\t")
@@ -46,10 +49,16 @@ def task1(filename, country, year):
 
             if country == data[head.index("NOC")] and year == data[head.index("Year")]:
                 all_line.append(line)
-        b = result_for1(all_line)
+                medal1 = line.split("\t")[14]
+                medals.append(medal1)
+        if 0 < len(medals) < 10:
+            print("This country has less then 10 medals in this year")
+        elif not medals:
+            print("Try again. This country does not exist or there was no olympics this year")
+        names = result_for1(all_line)
+        show_medals = count_medals(medals)
 
-
-    return b
+    return names
 
 c = task1("data_file.tsv", "USA","1936")
 
