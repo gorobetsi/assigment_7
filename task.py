@@ -84,3 +84,17 @@ if args[2] == "-medals":
     result = task1(filename, country, year)
     print(result)
 
+
+def overall(line, countries):
+    data = line.strip().split("\t")
+    for country in countries:
+        if country == data[6] and (data[-1] != "NA\n"):
+            countries[data[6]] = countries[data[6]] + data[9] + ";"
+    return countries
+
+
+
+
+
+
+
