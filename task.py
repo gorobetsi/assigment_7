@@ -1,6 +1,5 @@
 import sys
 
-
 def count_medals(medals):
     gold = 0
     silver = 0
@@ -31,9 +30,6 @@ def result_for1(list):
     for name in list_with_names:
         print(name[0], "-", name[1], "-", name[2])
 
-
-
-
 def task1(filename, country, year):
     head = None
     first_line = True
@@ -60,14 +56,31 @@ def task1(filename, country, year):
 
     return names
 
-c = task1("data_file.tsv", "USA","1936")
+def for_output(file, result_after1):
+    with open(file, "w") as file:
+        file.write(result_after1)
 
-print(c)
+#c = task1("data_file.tsv", "USA","1936")
 
-def main():
-    args = sys.argv
-    if args[1] == "-medals":
-        filename = args[args.index("-filename") + 1]
-        country = args[args.index("-country") + 1]
-        year = args[args.index("-year") + 1]
-        task1(filename, country, year)
+#print(c)
+
+
+#args = sys.argv
+# if args[2] == "-medals":
+#     filename = args[args.index("-filename") + 1]
+#     country = args[args.index("-country") + 1]
+#     year = args[args.index("-year") + 1]
+#     result = task1(filename, country, year)
+#     print(result)
+#     if args[4] == "-output":
+#         file_for_output = args[5]
+#         for_output(file_for_output, result)
+
+args = sys.argv
+if args[2] == "-medals":
+    filename = args[1]
+    country = args[3]
+    year = args[4]
+    result = task1(filename, country, year)
+    print(result)
+
