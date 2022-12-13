@@ -1,4 +1,12 @@
-import sys
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-O", "--List", type= str, nargs="+")
+parser.add_argument("-medals","--Medals")
+parser.add_argument("-C", "command")
+parser.add_argument("--overall", action="store_true")
+args = parser.parse_args()
+
 
 def count_medals(medals):
     gold = 0
@@ -17,6 +25,7 @@ def count_medals(medals):
     print("silver=", silver)
     print("bronze=", bronze)
 
+
 def result_for1(list):
     list_with_names = []
     time = 0
@@ -29,6 +38,7 @@ def result_for1(list):
             time = time + 1
     for name in list_with_names:
         print(name[0], "-", name[1], "-", name[2])
+
 
 def task1(filename, country, year):
     head = None
@@ -76,6 +86,7 @@ def for_output(file, result_after1):
 #         file_for_output = args[5]
 #         for_output(file_for_output, result)
 
+
 args = sys.argv
 if args[2] == "-medals":
     filename = args[1]
@@ -83,13 +94,33 @@ if args[2] == "-medals":
     year = args[4]
     result = task1(filename, country, year)
     print(result)
+elif args.overall:
+    overall()
 
 
-def overall(line, countries):
-    data = line.strip().split("\t")
-    for country in countries:
-        if country == data[6] and (data[-1] != "NA\n"):
-            countries[data[6]] = countries[data[6]] + data[9] + ";"
+def overall(countries):
+    first_line = True
+    d = dict()
+    with open(filename, "r") as file:
+        for line in file:
+            data = line.strip().split("\t")
+            if first_line:
+                first_line = False
+                continue
+            for country in countries:
+                if country == data[6] and (data[-1] != "NA\n"):
+                    countries[data[6]] = countries[data[6]] + data[9] + ";"
+                    if country not in d:
+                        d[country] = dict()
+                    if year not in d[country]:
+                        d[country][year] = 0
+                    d[country][year] +=1
+    for key, value in d.items():
+        m_key = list(value.keys())[0]
+        for k, val in value.items():
+            if val > value[m_key]:
+                m_key = k
+        print(key, m_key, value[m_key])
     return countries
 
 
