@@ -1,11 +1,14 @@
 import argparse
 
-parser = argparse.ArgumentParser()
-parser.add_argument("-O", "--List", type= str, nargs="+")
-parser.add_argument("-medals","--Medals")
-parser.add_argument("-C", "command")
-parser.add_argument("--overall", action="store_true")
-args = parser.parse_args()
+parser = argparse.ArgumentParser(description='parser')
+parser.add_argument("--medals", action="store_true", required=False)
+parser.add_argument("--total", action="store_true", required=False)
+parser.add_argument("--overall", nargs='+', required=False)
+parser.add_argument("--filename", "--f", required=True)
+parser.add_argument("--country", required=False)
+parser.add_argument("--year", required=False)
+parser.add_argument("--output", required=False)
+parser.add_argument("--interactive", action="store_true", required=False)
 
 
 def count_medals(medals):
@@ -114,7 +117,7 @@ def overall(countries):
                         d[country] = dict()
                     if year not in d[country]:
                         d[country][year] = 0
-                    d[country][year] +=1
+                    d[country][year] += 1
     for key, value in d.items():
         m_key = list(value.keys())[0]
         for k, val in value.items():
@@ -122,6 +125,34 @@ def overall(countries):
                 m_key = k
         print(key, m_key, value[m_key])
     return countries
+
+
+def interactive(countries):
+    first_line = True
+    d = dict()
+    user_country = input("please enter NOC country which you choose(USA or FIN..):\n")
+    with open(filename, "r") as file:
+        for line in file:
+            data = line.strip().split("\t")
+            if first_line:
+                first_line = False
+                continue
+            for country in countries:
+                if country == data[7]:
+                    countries[data[7]] = countries[data[7]] + data[9] + ";"
+                    if country not in d:
+                        d[country] = dict()
+                    if year not in d[country]:
+                        d[country][year] = 0
+                    d[country][year] += 1
+    for key, value in d.items():
+        m_key = list(value.keys())[0]
+        for k, val in value.items():
+            if val > value[m_key]:
+                m_key = k
+        print(key, m_key, value[m_key])
+
+
 
 
 
