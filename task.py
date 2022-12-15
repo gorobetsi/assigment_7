@@ -137,21 +137,47 @@ def interactive(countries):
             if first_line:
                 first_line = False
                 continue
-            for country in countries:
-                if country == data[7]:
-                    countries[data[7]] = countries[data[7]] + data[9] + ";"
-                    if country not in d:
-                        d[country] = dict()
-                    if year not in d[country]:
-                        d[country][year] = 0
-                    d[country][year] += 1
-    for key, value in d.items():
-        m_key = list(value.keys())[0]
-        for k, val in value.items():
-            if val > value[m_key]:
-                m_key = k
-        print(key, m_key, value[m_key])
-
+            for user_country in countries:
+                year = data[9]
+                medal = data[-1]
+                city = data[11]
+                if user_country == data[7] or user_country == data[6]:
+                    if year not in d:
+                        d[year] = dict()
+                        d[year]["Gold"] = 0
+                        d[year]["Silver"] = 0
+                        d[year]["Bronze"] = 0
+                        d[year]["total"] = 0
+                    if medal != "NA":
+                        d[year]["total"] += 1
+                    elif medal in d[year]:
+                        d[year][medal] += 1
+                    else:
+                        d[year][medal] = 1
+        total_medals = {"Gold": 0, "Silver": 0, "Bronze": 0, "total": 0}
+        counter = 0
+        best_year = 0
+        worst_year = 0
+        year1 = 2023
+        best_result = 0
+        worst_result = 100000
+        city1 = ""
+        for year, results in d.items():
+            if year1 > int(year):
+                year1 = int(year)
+                year1 = results[city]
+                print(f"{year} - {results[city]}")
+        for medal, count in results.items():
+            print(f"{medal} - {count}")
+            if medal != "city":
+                total_medals[medal] += count
+        if results["total"] > best_result:
+            best_result = results["total"]
+            best_year = year
+        if results["total"] < worst_result:
+            worst_result = results["total"]
+            worst_year = year
+        counter += 1
 
 
 
