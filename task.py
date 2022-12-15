@@ -65,22 +65,51 @@ def for_output(file, result_after1):
 #print(c)
 
 
-#args = sys.argv
+# args = sys.argv
 # if args[2] == "-medals":
-#     filename = args[args.index("-filename") + 1]
-#     country = args[args.index("-country") + 1]
-#     year = args[args.index("-year") + 1]
+#     filename = args[1]
+#     country = args[3]
+#     year = args[4]
 #     result = task1(filename, country, year)
 #     print(result)
-#     if args[4] == "-output":
-#         file_for_output = args[5]
-#         for_output(file_for_output, result)
+
+def total(filename, year):
+    head = None
+    first_line = True
+    countries = {}
+    with open(filename, "r") as file:
+        for line in file:
+            data = line.strip().split("\t")
+            country_name = data[7]
+            if first_line:
+                head = data
+                first_line = False
+                continue
+            if year == data[head.index("Year")] and data[14] != "NA\n":
+                if str(country_name) not in countries:
+                    countries[str(country_name)] = [0,0,0]
+                if data[14] == "Gold\n":
+                    countries[str(country_name)][0] += 1
+                elif data[14] == "Silver\n":
+                    countries[str(country_name)][1] += 1
+                elif data[14] == "Bronze\n":
+                    countries[str(country_name)][2] += 1
+        print(countries)
 
 args = sys.argv
 if args[2] == "-medals":
-    filename = args[1]
-    country = args[3]
-    year = args[4]
+    filename = args[args.index("-filename") + 1]
+    country = args[args.index("-country") + 1]
+    year = args[args.index("-year") + 1]
     result = task1(filename, country, year)
     print(result)
+    if args[4] == "-output":
+        file_for_output = args[5]
+        for_output(file_for_output, result)
+if args[2] == "-total":
+    filename = args[args.index("-filename") + 1]
+    year = args[args.index("-year") + 1]
+    result = total(filename, year)
+    print(result)
+
 
