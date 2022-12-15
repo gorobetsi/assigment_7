@@ -14,7 +14,15 @@ year_list = sorted(year_set)
 print(year_list)
 
 
-
+parser = argparse.ArgumentParser(description='parser')
+parser.add_argument("--medals", action="store_true", required=False)
+parser.add_argument("--total", action="store_true", required=False)
+parser.add_argument("--overall", nargs='+', required=False)
+parser.add_argument("--filename", "--f", required=True)
+parser.add_argument("--country", required=False)
+parser.add_argument("--year", required=False)
+parser.add_argument("--output", required=False)
+parser.add_argument("--interactive", action="store_true", required=False)
 
 
 
