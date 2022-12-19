@@ -100,6 +100,34 @@ if args[2] == "-medals":
 elif args.overall:
     overall()
 
+def total(filename, year):
+    head = None
+    first_line = True
+    countries = {}
+    with open(filename, "r") as file:
+        for line in file:
+            data = line.strip().split("\t")
+            country_name = data[7]
+            if first_line:
+                head = data
+                first_line = False
+                continue
+            if year == data[head.index("Year")] and data[14] != "NA\n":
+                if str(country_name) not in countries:
+                    countries[str(country_name)] = [0,0,0]
+                if data[14] == "Gold\n":
+                    countries[str(country_name)][0] += 1
+                elif data[14] == "Silver\n":
+                    countries[str(country_name)][1] += 1
+                elif data[14] == "Bronze\n":
+                    countries[str(country_name)][2] += 1
+        print(countries)
+
+if args[2] == "-total":
+    filename = args[args.index("-filename") + 1]
+    year = args[args.index("-year") + 1]
+    result = total(filename, year)
+    print(result)
 
 def overall(countries):
     first_line = True
