@@ -5,7 +5,7 @@ def interactive():
     print(user_country)
     with open("data_file.tsv", "r") as file:
         best_year = 0
-        Olymp=[]
+        Olymp = []
         worst_year = 0
         year1 = 2023
         best_result = 0
@@ -26,28 +26,18 @@ def interactive():
                 if year not in Olymp:
                     Olymp.append(year)
                 if year not in d:
-                       # d[year] = dict()
-                    d[year]=0 #gold, silver, bronze,total
-                            # d[year]["Gold"] = 0
-                        # d[year]["Silver"] = 0
-                        # d[year]["Bronze"] = 0
-                        # d[year]["total"] = 0
+                    d[year] = 0
                 if year1 > int(data[9]):
                     year1 = int(data[9])
                     city1 = city
-                if medal != "NA\n" or medal != "NA":
+                if medal == "NA\n" or medal != "NA":
                     d[year] += 1
                     if medal == "Gold":
-                        Gold+= 1
+                        Gold += 1
                     elif medal == "Silver":
-                        Silver+= 1
+                        Silver += 1
                     elif medal == "Bronze":
-                        Bronze+= 1
-
-
-   # result
-
-
+                        Bronze += 1
     for year in d:
         if d[year] > best_result:
             best_result = d.get(year)
@@ -56,23 +46,6 @@ def interactive():
         if d[year] < worst_result:
             worst_result = d.get(year)
             worst_year = year
-
-        # for year, results in d.items():
-        #     if year1 > int(year):
-        #         year1 = int(year)
-        #         year1 = results[city]
-        #         print(f"{year} - {results[city]}")
-        # for medal, count in results.items():
-        #     print(f"{medal} - {count}")
-        #     if medal != "city":
-        #         total_medals[medal] += count
-        # if results["total"] > best_result:
-        #     best_result = results["total"]
-        #     best_year = year
-        # if results["total"] < worst_result:
-        #     worst_result = results["total"]
-        #     worst_year = year
-        # counter += 1
     print(f"the best year - {best_year} - {best_result} medals")
     print(f"the worst year - {worst_year} - {worst_result} medals")
     print(f"average gold {Gold//len(Olymp)} ")
