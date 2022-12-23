@@ -22,12 +22,15 @@ def total(filename, year):
                 elif data[14] == "Bronze":
                     countries[str(country_name)][2] += 1
         print(countries)
+        sort_countries = sorted(countries.items(), key=lambda i: sum(i[1]), reverse=True)
+        for n in sort_countries:
+            print(n[0], "-", "Total", sum(n[1]))
 
 
-# print(total("data_file.tsv", 1992))
-args = sys.argv
-if args[2] == "-total":
-    filename = args[1]
-    year = args[3]
-    result = total(filename, year)
-    print(result)
+print(total("data_file.tsv", 1992))
+# args = sys.argv
+# if args[2] == "-total":
+#     filename = args[1]
+#     year = args[3]
+#     result = total(filename, year)
+#     print(result)

@@ -2,8 +2,9 @@ def interactive():
     first_line = True
     d = dict()
     user_country = input("please enter NOC country which you choose(USA or FIN..):\n")
+    filename = input("Enter your file:")
     print(user_country)
-    with open("data_file.tsv", "r") as file:
+    with open(filename, "r") as file:
         best_year = 0
         Olymp = []
         worst_year = 0
